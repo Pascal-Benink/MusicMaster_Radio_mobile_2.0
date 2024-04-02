@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MusicMaster_Radio_mobile_2._0.MainPage">
+
+    <Grid>
+        <!-- Your main content goes here -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" IsVisible="True">
+
+            <Label Text="Radio" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="0,10"/>
+
+            <Image x:Name="stationImage" Source="_100pnl.png" HeightRequest="100" WidthRequest="100" IsVisible="True" />
+
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <RadioButton x:Name="radioButton1" GroupName="RadioGroup" IsChecked="True" />
+                <Label Text="100%NL" VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <RadioButton x:Name="radioButton2" GroupName="RadioGroup" />
+                <Label Text="Radio10" VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <RadioButton x:Name="radioButton3" GroupName="RadioGroup" />
+                <Label Text="SkyRadio" VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <!-- CheckedChanged="RadioButton_CheckedChanged"-->
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <RadioButton x:Name="radioButton4" GroupName="RadioGroup" />
+                <Label Text="RTV Rijnmond" VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Entry x:Name="NameEntry" Placeholder="Enter Name" Grid.Row="0" HorizontalOptions="CenterAndExpand" WidthRequest="300"/>
+                <Entry x:Name="urlEntry" Placeholder="Enter URL" Grid.Row="1" HorizontalOptions="CenterAndExpand" WidthRequest="300"/>
+                <Button Text="Submit" x:Name="Submit" Clicked="Submit_Clicked" Grid.Row="2" WidthRequest="190" HorizontalOptions="Center"/>
+            </Grid>
+
+            <Label x:Name="Select" Text="Selected: 100%NL" FontSize="16" HorizontalOptions="CenterAndExpand" Margin="0,10"/>
+
+            <Button Text="Play Selected Radio" Clicked="PlayButton_Clicked" HorizontalOptions="CenterAndExpand" WidthRequest="190"/>
+            <Button Text="Stop" Clicked="StopButton_Clicked" HorizontalOptions="CenterAndExpand" WidthRequest="190"/>
+
+            <Label x:Name="statusLabel" Text="Status: Stopped" FontSize="16" HorizontalOptions="CenterAndExpand" Margin="0,10"/>
+
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="End">
+            <Label Text="Version:" />
+            <Label Text="{Binding AppVersion}" />
+        </StackLayout>
+
+        <Label Text="Support" HorizontalOptions="Start" VerticalOptions="End">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="SupportLabel_Tapped" />
+            </Label.GestureRecognizers>
+        </Label>
+
+    </Grid>
+
+</ContentPage>
