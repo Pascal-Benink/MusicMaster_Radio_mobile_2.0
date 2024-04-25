@@ -21,19 +21,6 @@ public class MainActivity : MauiAppCompatActivity
     {
         base.OnCreate(savedInstanceState);
 
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-        {
-            var channelId = "musicmaster_radio_channel";
-            var channelName = "MusicMaster Radio";
-            var channelDescription = "Notifications for MusicMaster Radio";
-            var notificationManager = (NotificationManager)GetSystemService(NotificationService);
-            var channel = new NotificationChannel(channelId, channelName, NotificationImportance.Default)
-            {
-                Description = channelDescription
-            };
-            notificationManager.CreateNotificationChannel(channel);
-        }
-
         DependencyService.Register<IAudioPlayer, AudioPlayer>();
     }
 }
