@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicMaster_Radio_mobile_2._0
+namespace MusicMaster_Radio_mobile_2._0.Interfaces
 {
     internal interface IAudioPlayer
     {

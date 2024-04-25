@@ -1,15 +1,16 @@
-﻿
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using MusicMaster_Radio_mobile_2._0.Interfaces;
 
 namespace MusicMaster_Radio_mobile_2._0;
 
 public partial class MainPage : ContentPage
 {
+    private IAudioPlayer audioPlayer;
 
-	public MainPage()
-	{
-		InitializeComponent();
+    public MainPage()
+    {
+        InitializeComponent();
+        audioPlayer = DependencyService.Get<IAudioPlayer>();
 
         radioButton1.CheckedChanged += RadioButton_CheckedChanged;
         radioButton2.CheckedChanged += RadioButton_CheckedChanged;
@@ -18,19 +19,19 @@ public partial class MainPage : ContentPage
 
         var App_Version = AppInfo.Current.VersionString;
 
+        Debug.WriteLine("app version" + App_Version);
+
         if (App_Version.Contains("dev"))
         {
             DisplayAlert("Unauthorized version detected", "If you are not a developer please delete this app and report how you got this app to support", "OK");
         }
     }
 
-    bool playing = false;
+    public bool playing = false;
 
-    string radiourl = "https://25343.live.streamtheworld.com/100PNL_MP3_SC";
+    public string radiourl = "https://25343.live.streamtheworld.com/100PNL_MP3_SC";
 
-    string selectedStation = "100%NL";
-
-    private readonly IAudioPlayer audioPlayer = DependencyService.Get<IAudioPlayer>();
+    public string selectedStation = "100%NL";
 
     private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
@@ -92,30 +93,28 @@ public partial class MainPage : ContentPage
 
     private void PlayButton_Clicked(object sender, EventArgs e)
     {
-        /*Debug.WriteLine("This is a debug message from shared code.");
         if (playing == false)
         {
             Debug.WriteLine(radiourl);
-            audioPlayer.PlayAudio(radiourl);
-            playing = true;
-            statusLabel.Text = $"Status: Playing {selectedStation}";
-
-            notificationManager.SendNotification("Now Playing", $"{selectedStation} is playing", notificationId);
-            App.AppData = new NotificationData
+            if (audioPlayer != null)
             {
-                SelectedStation = selectedStation,
-                NotificationId = notificationId
-            };
-        }*/
-
+                audioPlayer.PlayAudio(radiourl);
+                playing = true;
+                statusLabel.Text = $"Status: Playing {selectedStation}";
+            }
+            else
+            {
+                Debug.WriteLine("audioPlayer is null");
+                Debug.WriteLine(audioPlayer);
+            }
+        }
     }
 
     private void StopButton_Clicked(object sender, EventArgs e)
     {
-        /*audioPlayer.StopAudio();
+        audioPlayer.StopAudio();
         playing = false;
         statusLabel.Text = "Status: Stopped";
-        notificationManager.CancelNotification(notificationId);*/
     }
 }
 

@@ -1,6 +1,5 @@
 ﻿using Android.Content;
 using Android.Media;
-using AndriodMedia = Android.Media;
 using Android.Media.Session;
 using Android.OS;
 using System;
@@ -8,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Android.OS.PowerManager;
 using AndroidApp = Android.App.Application;
+using Amedia = Android.Media;
 using MusicMaster_Radio_mobile_2._0.Platforms.Android;
+using MusicMaster_Radio_mobile_2._0.Interfaces;
+using static Android.OS.PowerManager;
 
-[assembly: Dependency(typeof(AudioPlayer))]
-
+    [assembly: Dependency(typeof(AudioPlayer))]
+    [assembly: Dependency(typeof(MusicMaster_Radio_mobile_2._0.Platforms.Android.AudioPlayer))]
 
 namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
 {
@@ -35,6 +36,7 @@ namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
 
             mediaSession = new MediaSession(context, "AudioPlayerSession");
         }
+
         public void PlayAudio(string audioUrl)
         {
             try
@@ -42,9 +44,9 @@ namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
                 mediaPlayer = new MediaPlayer();
 
                 var audioAttributes = new AudioAttributes.Builder()
-                    .SetUsage(AudioUsageKind.Media)
-                    .SetContentType(AudioContentType.Music)
-                    .Build();
+                   .SetUsage(AudioUsageKind.Media)
+                   .SetContentType(AudioContentType.Music)
+                   .Build();
 
                 mediaPlayer.SetAudioAttributes(audioAttributes);
 
@@ -122,13 +124,13 @@ namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
                 {
                     var audioAttributes = new AudioAttributes.Builder()
-                        .SetUsage(AudioUsageKind.Media)
-                        .SetContentType(AudioContentType.Music)
-                        .Build();
+                       .SetUsage(AudioUsageKind.Media)
+                       .SetContentType(AudioContentType.Music)
+                       .Build();
 
                     var focusRequest = new AudioFocusRequestClass.Builder(AudioFocus.Gain)
-                        .SetAudioAttributes(audioAttributes)
-                        .Build();
+                       .SetAudioAttributes(audioAttributes)
+                       .Build();
 
                     var result = audioManager.RequestAudioFocus(focusRequest);
 
@@ -145,7 +147,7 @@ namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
                 else
                 {
                     // Use the older audio focus request mechanism for older Android versions
-                    var result = audioManager.RequestAudioFocus(null, AndriodMedia.Stream.Music, AudioFocus.Gain);
+                    var result = audioManager.RequestAudioFocus(null, Amedia.Stream.Music, AudioFocus.Gain);
 
                     if (result == AudioFocusRequest.Granted)
                     {
@@ -158,6 +160,7 @@ namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
                 }
             }
         }
+
         private void AbandonAudioFocus()
         {
             if (audioManager != null)
