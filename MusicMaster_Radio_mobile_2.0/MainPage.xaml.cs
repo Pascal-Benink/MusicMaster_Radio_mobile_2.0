@@ -7,6 +7,8 @@ public partial class MainPage : ContentPage
 {
     private IAudioPlayer audioPlayer;
 
+    public static bool IsInitialized { get; private set; }
+
     public MainPage()
     {
         InitializeComponent();
@@ -17,14 +19,46 @@ public partial class MainPage : ContentPage
         radioButton3.CheckedChanged += RadioButton_CheckedChanged;
         radioButton4.CheckedChanged += RadioButton_CheckedChanged;
 
+        IsInitialized = true;
+
+        var App_Version = AppInfo.Current.VersionString;
+
+        versionLabel.Text += App_Version;
+
+        Debug.WriteLine("app version" + App_Version);
+    }
+
+    /*private void DisplayAlertUnauthorized()
+    {
+        Application.Current.MainPage.Dispatcher.Dispatch(() =>
+        {
+            Debug.WriteLine("await DisplayAlert");
+            DisplayAlert("Unauthorized version detected", "If you are not a developer please delete this app and report how you got this app to support", "OK");
+            Debug.WriteLine("end await DisplayAlert");
+        });
+    }*/
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
         var App_Version = AppInfo.Current.VersionString;
 
         Debug.WriteLine("app version" + App_Version);
 
+        await Task.Delay(3000); // Delay for 1 second
+
         if (App_Version.Contains("dev"))
         {
-            DisplayAlert("Unauthorized version detected", "If you are not a developer please delete this app and report how you got this app to support", "OK");
+            DisplayAlertUnauthorized();
         }
+    }
+
+    private void DisplayAlertUnauthorized()
+    {
+        Debug.WriteLine("await DisplayAlert");
+        DisplayAlert("Unauthorized version detected", "If you are not a developer please delete this app and report how you got this app to support", "OK");
+        Debug.WriteLine("end await DisplayAlert");
     }
 
     public bool playing = false;
