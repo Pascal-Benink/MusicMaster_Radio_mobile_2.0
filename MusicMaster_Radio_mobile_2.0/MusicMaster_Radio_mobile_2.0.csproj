@@ -81,7 +81,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\drawable\icon.png" />
+	  <None Remove="Platforms\Android\Resources\drawable\stop_icon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Platforms\Android\Resources\drawable\icon.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Platforms\Android\Resources\drawable\stop_icon.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>

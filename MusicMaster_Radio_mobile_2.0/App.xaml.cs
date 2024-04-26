@@ -2,7 +2,9 @@
 
 public partial class App : Application
 {
-	public App()
+    public static NotificationData AppData { get; set; }
+
+    public App()
 	{
 		InitializeComponent();
 

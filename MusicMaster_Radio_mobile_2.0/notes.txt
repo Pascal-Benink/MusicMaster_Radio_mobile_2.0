@@ -1,0 +1,26 @@
+﻿To-do:
+1. Change collors
+2. fix images
+3. fix logo
+4. fix splashscreen
+-
+
+Commit Conventions:
+Pre Release 0.1.0.0
+
+Change Log Pre Release 0.1.0.0:
+Changed to .NET MAUI
+-
+
+Change Log Pre Release 0.2.0.0:
+ReAdded notification
+fixed Version display and dev checker
+-
+
+isues .NET MAUI:
+1.
+-
+
+isues Xamarin(old, need to reverify):
+1. After playing in lock mode for a few minutes music stops (5minutes) - probbably fixed - issue possibly back need to investigate.
+-

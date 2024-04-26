@@ -7,20 +7,39 @@ public partial class MainPage : ContentPage
 {
     private IAudioPlayer audioPlayer;
 
-    public static bool IsInitialized { get; private set; }
+    private INotificationManager notificationManager;
+
+    private const int notificationId = 100;
+
 
     public MainPage()
     {
         InitializeComponent();
         audioPlayer = DependencyService.Get<IAudioPlayer>();
+        notificationManager = DependencyService.Get<INotificationManager>();
+
+        if (notificationManager != null)
+        {
+
+            notificationManager.Initialize();
+        }
+        else
+        {
+            Debug.WriteLine("notificationManager is null");
+            Debug.WriteLine(notificationManager);
+        }
+
+        MessagingCenter.Subscribe<object>(this, "StopMusicMessage", (sender) =>
+        {
+            StopButton_Clicked(this, EventArgs.Empty);
+        });
 
         radioButton1.CheckedChanged += RadioButton_CheckedChanged;
         radioButton2.CheckedChanged += RadioButton_CheckedChanged;
         radioButton3.CheckedChanged += RadioButton_CheckedChanged;
         radioButton4.CheckedChanged += RadioButton_CheckedChanged;
 
-        IsInitialized = true;
-
+        
         var App_Version = AppInfo.Current.VersionString;
 
         versionLabel.Text += App_Version;
@@ -47,6 +66,7 @@ public partial class MainPage : ContentPage
         Debug.WriteLine("app version" + App_Version);
 
         await Task.Delay(3000); // Delay for 1 second
+
 
         if (App_Version.Contains("dev"))
         {
@@ -135,6 +155,13 @@ public partial class MainPage : ContentPage
                 audioPlayer.PlayAudio(radiourl);
                 playing = true;
                 statusLabel.Text = $"Status: Playing {selectedStation}";
+
+                notificationManager.SendNotification("Now Playing", $"{selectedStation} is playing", notificationId);
+                App.AppData = new NotificationData
+                {
+                    SelectedStation = selectedStation,
+                    NotificationId = notificationId
+                };
             }
             else
             {
@@ -149,6 +176,8 @@ public partial class MainPage : ContentPage
         audioPlayer.StopAudio();
         playing = false;
         statusLabel.Text = "Status: Stopped";
+
+        notificationManager.CancelNotification(notificationId);
     }
 }
 
