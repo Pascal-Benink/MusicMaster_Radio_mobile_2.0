@@ -3,6 +3,7 @@
 2. fix images
 3. fix logo
 4. fix splashscreen
+5. if possible make notification silent  -apears not to be possible
 -
 
 Commit Conventions:
@@ -15,6 +16,10 @@ Changed to .NET MAUI
 Change Log Pre Release 0.2.0.0:
 ReAdded notification
 fixed Version display and dev checker
+-
+
+Change Log Pre Release 0.3.0.0:
+
 -
 
 isues .NET MAUI:

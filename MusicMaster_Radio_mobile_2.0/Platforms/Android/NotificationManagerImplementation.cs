@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using andriod_app = Android.App;
 using anriod_provider = Android.Provider;
+using andriod_net = Android.Net;
 using Android.Content;
 using Android.Support.V4.App;
 using Android.OS;
@@ -192,7 +193,7 @@ namespace MusicMaster_Radio_mobile_2._0.Platforms.Android
 
             var channel = new NotificationChannel(channelId, channelName, NotificationImportance.Default)
             {
-                Description = channelDescription
+                Description = channelDescription,
             };
 
             notificationManager.CreateNotificationChannel(channel);
